@@ -70,3 +70,49 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log("Servidor corriendo en puerto", PORT);
 });
+
+app.get("/ver", async (req, res) => {
+
+    try {
+
+        const datos = await Clima.find().sort({ fecha: -1 }).limit(20)
+
+        let html = `
+        <h1>Estación Climática</h1>
+        <table border="1" cellpadding="10">
+        <tr>
+            <th>Temperatura</th>
+            <th>Presión</th>
+            <th>Lux</th>
+            <th>W/m²</th>
+            <th>Hall</th>
+            <th>Fecha</th>
+        </tr>
+        `
+
+        datos.forEach(d => {
+
+            html += `
+            <tr>
+                <td>${d.temperatura}</td>
+                <td>${d.presion}</td>
+                <td>${d.lux}</td>
+                <td>${d.wm2}</td>
+                <td>${d.hall}</td>
+                <td>${d.fecha}</td>
+            </tr>
+            `
+
+        })
+
+        html += `</table>`
+
+        res.send(html)
+
+    } catch (error) {
+
+        res.send(error.toString())
+
+    }
+
+})
