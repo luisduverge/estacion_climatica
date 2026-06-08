@@ -22,6 +22,7 @@ const climaSchema = new mongoose.Schema({
     lux: Number,
     wm2: Number,
     hall: Number,
+    suelo: Number,
 
     fecha: {
         type: Date,
@@ -29,6 +30,7 @@ const climaSchema = new mongoose.Schema({
     }
 
 });
+
 
 // MODELO
 const Clima = mongoose.model("Clima", climaSchema);
@@ -71,6 +73,8 @@ app.listen(PORT, () => {
     console.log("Servidor corriendo en puerto", PORT);
 });
 
+
+// VER DATOS
 app.get("/ver", async (req, res) => {
 
     try {
@@ -86,6 +90,7 @@ app.get("/ver", async (req, res) => {
             <th>Lux</th>
             <th>W/m²</th>
             <th>Hall</th>
+            <th>Suelo</th>
             <th>Fecha</th>
         </tr>
         `
@@ -99,6 +104,7 @@ app.get("/ver", async (req, res) => {
                 <td>${d.lux}</td>
                 <td>${d.wm2}</td>
                 <td>${d.hall}</td>
+                <td>${d.suelo}</td>
                 <td>${d.fecha}</td>
             </tr>
             `
@@ -115,4 +121,4 @@ app.get("/ver", async (req, res) => {
 
     }
 
-})
+});
